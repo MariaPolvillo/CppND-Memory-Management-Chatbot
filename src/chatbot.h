@@ -3,6 +3,7 @@
 
 #include <wx/bitmap.h>
 #include <string>
+#include <iostream>
 
 class GraphNode; // forward declaration
 class ChatLogic; // forward declaration
@@ -11,8 +12,8 @@ class ChatBot
 {
 private:
     // data handles (owned)
-    wxBitmap *_image; // avatar image
-
+    wxBitmap *_image;      // avatar image
+    
     // data handles (not owned)
     GraphNode *_currentNode;
     GraphNode *_rootNode;
@@ -28,7 +29,11 @@ public:
     ~ChatBot();
 
     //// STUDENT CODE
-    ////
+    //// Rule Of Five (destructor defined above)
+    ChatBot(ChatBot &&chatbot);            // move constructor
+    ChatBot(const ChatBot &chatbot);       // copy constructor
+    ChatBot &operator=(ChatBot &&chatbot); // move assignment operator
+    ChatBot &operator=(const ChatBot &chatbot); // copy assignment operator
 
     ////
     //// EOF STUDENT CODE
@@ -37,7 +42,7 @@ public:
     void SetCurrentNode(GraphNode *node);
     void SetRootNode(GraphNode *rootNode) { _rootNode = rootNode; }
     void SetChatLogicHandle(ChatLogic *chatLogic) { _chatLogic = chatLogic; }
-    ChatLogic* GetChatLogicHandle() { return _chatLogic; }
+    ChatLogic *GetChatLogicHandle() { return _chatLogic; }
     wxBitmap *GetImageHandle() { return _image; }
 
     // communication
